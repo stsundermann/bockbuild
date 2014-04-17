@@ -196,7 +196,7 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
                     backtick('dsymutil "%s"' % f)
 
     def install_root(self):
-        return os.path.join(self.MONO_ROOT, "Versio`ns", self.RELEASE_VERSION)
+        return os.path.join(self.MONO_ROOT, "Versions", self.RELEASE_VERSION)
 
     def fix_line(self, line, matcher):
         def insert_install_root(matches):
