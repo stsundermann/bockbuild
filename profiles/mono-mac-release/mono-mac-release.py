@@ -23,6 +23,7 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
         self.BUILD_NUMBER = "0"
         self.MRE_GUID = "432959f9-ce1b-47a7-94d3-eb99cb2e1aa8"
         self.MDK_GUID = "964ebddd-1ffe-47e7-8128-5ce17ffffb05"
+        self.os_x_minor_required = 7
 
         if self.RELEASE_VERSION is None:
             raise Exception("Please define the environment variable: MONO_VERSION")
@@ -40,6 +41,9 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
 
         DarwinProfile.__init__(self, self.release_root)
         MonoReleasePackages.__init__(self)
+
+        if self.os_x_minor != self.os_x_minor_required:
+            raise Exception("You must build this package using OS X 10.%d SDK (SDK version found: %d)" %(self.os_x_minor_required,self.os_x_minor))
 
         self.self_dir = os.path.realpath(os.path.dirname(sys.argv[0]))
         self.packaging_dir = os.path.join(self.self_dir, "packaging")
@@ -192,7 +196,7 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
                     backtick('dsymutil "%s"' % f)
 
     def install_root(self):
-        return os.path.join(self.MONO_ROOT, "Versions", self.RELEASE_VERSION)
+        return os.path.join(self.MONO_ROOT, "Versio`ns", self.RELEASE_VERSION)
 
     def fix_line(self, line, matcher):
         def insert_install_root(matches):
