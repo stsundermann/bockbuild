@@ -10,20 +10,19 @@ import tempfile
 
 sys.path.append('../..')
 
-from bockbuild.darwinprofile import DarwinProfile
+from bockbuild.darwinlionprofile import DarwinLionProfile
 from bockbuild.util.util import *
 from packages import MonoReleasePackages
 from glob import glob
 
 
-class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
+class MonoReleaseProfile(DarwinLionProfile, MonoReleasePackages):
     def __init__(self):
         self.MONO_ROOT = "/Library/Frameworks/Mono.framework"
         self.RELEASE_VERSION = os.getenv('MONO_VERSION')
         self.BUILD_NUMBER = "0"
         self.MRE_GUID = "432959f9-ce1b-47a7-94d3-eb99cb2e1aa8"
         self.MDK_GUID = "964ebddd-1ffe-47e7-8128-5ce17ffffb05"
-        self.os_x_minor_required = 7
 
         if self.RELEASE_VERSION is None:
             raise Exception("Please define the environment variable: MONO_VERSION")
@@ -39,11 +38,8 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
         versions_root = os.path.join(self.MONO_ROOT, "Versions")
         self.release_root = os.path.join(versions_root, self.RELEASE_VERSION)
 
-        DarwinProfile.__init__(self, self.release_root)
+        DarwinLionProfile.__init__(self, self.release_root)
         MonoReleasePackages.__init__(self)
-
-        if self.os_x_minor != self.os_x_minor_required:
-            raise Exception("You must build this package using OS X 10.%d SDK (SDK version found: %d)" %(self.os_x_minor_required,self.os_x_minor))
 
         self.self_dir = os.path.realpath(os.path.dirname(sys.argv[0]))
         self.packaging_dir = os.path.join(self.self_dir, "packaging")
@@ -56,7 +52,7 @@ class MonoReleaseProfile(DarwinProfile, MonoReleasePackages):
         if not os.path.exists(os.path.join(self.release_root, "bin")):
             log(0, "Rebuilding world - new prefix: " + self.release_root)
             shutil.rmtree(self.build_root, ignore_errors=True)
-        DarwinProfile.build(self)
+        DarwinLionProfile.build(self)
 
     def make_package_symlinks(self, root):
         os.symlink(self.prefix, os.path.join(root, "Versions", "Current"))

@@ -1,5 +1,5 @@
 import os
-from bockbuild.darwinprofile import DarwinProfile
+from bockbuild.darwinlionprofile import DarwinLionProfile
 
 class MonoReleasePackages:
 	def __init__(self):
@@ -65,7 +65,7 @@ class MonoReleasePackages:
 		self.packages.extend([
 				'mono-llvm.py',
 				'mono-master.py',
-				'libgdiplus.py',
+				'libgdiplus.py',	
 				'xsp.py',
 				'gtk-sharp-2.12-release.py',
 				'boo.py',
