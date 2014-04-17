@@ -12,37 +12,47 @@ class DarwinProfile (UnixProfile):
 		self.os_x_major = 10
 		self.m64 = m64
 
-		sdkroot = '/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
-		if (not os.path.isdir (sdkroot)):
-			sdkroot = '/Developer/SDKs/'
+		xcode4_sdkroot = '/Applications/Xcode46.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
+		xcode5_sdkroot = '/Applications/Xcode51.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
 
-		if (os.path.isdir (sdkroot + 'MacOSX10.6.sdk')):
+		if (not os.path.isdir (xcode4_sdkroot)):
+			xcode4_sdkroot = '/Developer/SDKs/'
+
+		if (not os.path.isdir (xcode5_sdkroot)):
+			xcode5_sdkroot = '/Developer/SDKs/'
+
+		#Xcode 4.x SDKs 
+
+		if (os.path.isdir (xcode4_sdkroot + 'MacOSX10.6.sdk')):
 			self.os_x_minor = 6
-			self.mac_sdk_path = sdkroot + 'MacOSX10.6.sdk'
+			self.mac_sdk_path = xcode4_sdkroot + 'MacOSX10.6.sdk'
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
 				'-mmacosx-version-min=10.6',
 			])
-		elif (os.path.isdir (sdkroot + 'MacOSX10.7.sdk')):
+		elif (os.path.isdir (xcode4_sdkroot + 'MacOSX10.7.sdk')):
 			self.os_x_minor = 7
-			self.mac_sdk_path = sdkroot + 'MacOSX10.7.sdk'
+			self.mac_sdk_path = xcode4_sdkroot + 'MacOSX10.7.sdk'
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
 				'-mmacosx-version-min=10.7',
 			])
-		elif (os.path.isdir (sdkroot + 'MacOSX10.8.sdk')):
+
+		#Xcode 5.x SDKs
+
+		elif (os.path.isdir (xcode5_sdkroot + 'MacOSX10.8.sdk')):
 			self.os_x_minor = 8
-			self.mac_sdk_path = sdkroot + 'MacOSX10.8.sdk'
+			self.mac_sdk_path = xcode5_sdkroot + 'MacOSX10.8.sdk'
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
 				'-mmacosx-version-min=10.8',
 			])
-		elif (os.path.isdir (sdkroot + 'MacOSX10.9.sdk')):
+		elif (os.path.isdir (xcode5_sdkroot + 'MacOSX10.9.sdk')):
 			self.os_x_minor = 9
-			self.mac_sdk_path = sdkroot + 'MacOSX10.9.sdk'
+			self.mac_sdk_path = xcode5_sdkroot + 'MacOSX10.9.sdk'
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
