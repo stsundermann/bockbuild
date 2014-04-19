@@ -12,8 +12,11 @@ class DarwinProfile (UnixProfile):
 		self.os_x_major = 10
 		self.m64 = m64
 
-		xcode4_sdkroot = '/Applications/Xcode46.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
-		xcode5_sdkroot = '/Applications/Xcode51.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
+		xcode4_devroot = '/Applications/Xcode46.app/Contents/Developer/'
+		xcode5_devroot = '/Applications/Xcode51.app/Contents/Developer/'
+
+		xcode4_sdkroot = xcode4_devroot + 'Platforms/MacOSX.platform/Developer/SDKs/'
+		xcode5_sdkroot = xcode5_devroot + 'Platforms/MacOSX.platform/Developer/SDKs/'
 
 		if (not os.path.isdir (xcode4_sdkroot)):
 			xcode4_sdkroot = '/Developer/SDKs/'
@@ -26,6 +29,7 @@ class DarwinProfile (UnixProfile):
 		if (os.path.isdir (xcode4_sdkroot + 'MacOSX10.6.sdk')):
 			self.os_x_minor = 6
 			self.mac_sdk_path = xcode4_sdkroot + 'MacOSX10.6.sdk'
+			self.mac_dev_path = xcode4_devroot
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
@@ -34,6 +38,7 @@ class DarwinProfile (UnixProfile):
 		elif (os.path.isdir (xcode4_sdkroot + 'MacOSX10.7.sdk')):
 			self.os_x_minor = 7
 			self.mac_sdk_path = xcode4_sdkroot + 'MacOSX10.7.sdk'
+			self.mac_dev_path = xcode4_devroot
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
@@ -45,6 +50,7 @@ class DarwinProfile (UnixProfile):
 		elif (os.path.isdir (xcode5_sdkroot + 'MacOSX10.8.sdk')):
 			self.os_x_minor = 8
 			self.mac_sdk_path = xcode5_sdkroot + 'MacOSX10.8.sdk'
+			self.mac_dev_path = xcode5_devroot
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
@@ -53,6 +59,7 @@ class DarwinProfile (UnixProfile):
 		elif (os.path.isdir (xcode5_sdkroot + 'MacOSX10.9.sdk')):
 			self.os_x_minor = 9
 			self.mac_sdk_path = xcode5_sdkroot + 'MacOSX10.9.sdk'
+			self.mac_dev_path = xcode5_devroot
 			self.gcc_flags.extend ([
 				'-D_XOPEN_SOURCE',
 				'-isysroot %{mac_sdk_path}',
@@ -79,6 +86,8 @@ class DarwinProfile (UnixProfile):
 		#	self.env.set ('CXX', 'g++-4.2')
 		#else:
 		if os.getenv('BOCKBUILD_USE_CCACHE') is None:
+			self.env.set ('SDKROOT', self.mac_sdk_path)
+			self.env.set ('DEVELOPER_DIR', self.mac_dev_path)
 			self.env.set ('CC',  'xcrun gcc')
 			self.env.set ('CXX', 'xcrun g++')
 		else:
