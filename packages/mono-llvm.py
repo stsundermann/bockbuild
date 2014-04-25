@@ -14,6 +14,6 @@ class MonoLlvmPackage (GitHubPackage):
 				self.configure_flags.extend ([
 					'--build=i386-apple-darwin11.4.0'
 				])
-				os.environ ['MACOSX_DEPLOYMENT_TARGET'] = '10.8'
+				os.environ ['MACOSX_DEPLOYMENT_TARGET'] = '10.7'
 
 MonoLlvmPackage ()

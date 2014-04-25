@@ -10,3 +10,4 @@ class DarwinLionProfile (DarwinProfile):
 
 		if self.os_x_minor != 7:
         		raise Exception("You must build this package using the OS X 10.%d SDK (SDK version found: %d)" %(self.os_x_minor_required,self.os_x_minor))
+        	os.environ ['MACOSX_DEPLOYMENT_TARGET'] = '10.7'
