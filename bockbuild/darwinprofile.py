@@ -12,7 +12,7 @@ class DarwinProfile (UnixProfile):
 		self.os_x_major = 10
 		self.m64 = m64
 
-		xcode4_sdkroot = '/Applications/Xcode46.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
+		xcode4_sdkroot = '/Applications/Xcode44.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
 		xcode5_sdkroot = '/Applications/Xcode51.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/'
 
 		if (not os.path.isdir (xcode4_sdkroot)):
