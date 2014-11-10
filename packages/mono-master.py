@@ -9,7 +9,8 @@ class MonoMasterPackage(Package):
 			configure_flags = [
 				'--enable-nls=no',
 				'--with-ikvm=yes',
-				'--with-moonlight=no'
+				'--with-moonlight=no',
+				'--with-profile2=no'
 			]
 		)
 		#This package would like to be lipoed.
