@@ -152,7 +152,9 @@ class GtkPackage (GnomeGitPackage):
 
 				# This fixes an issue in where in some situations the user needed
 				# to click a native text entry twice in order to be able to focus it.
-				'patches/gtk/gtknsview-only-unset-first-responder-if-it-is-our-view.patch'
+				'patches/gtk/gtknsview-only-unset-first-responder-if-it-is-our-view.patch',
+
+				'patches/gtk/gtknsview-unset-the-first-responder-if-focused-widget-isnt-gtknsview.patch;
 			])
 
 	def prep (self):
