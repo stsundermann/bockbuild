@@ -749,6 +749,11 @@ GstreamerPackage.default_sources = [
 	'https://%{project}.freedesktop.org/src/%{name}/%{name}-%{version}.tar.gz'
 ]
 
+class GstreamerXzPackage (ProjectPackage): pass
+GstreamerPackage.default_sources = [
+	'https://%{project}.freedesktop.org/src/%{name}/%{name}-%{version}.tar.xz'
+]
+
 class XiphPackage (ProjectPackage): pass
 XiphPackage.default_sources = [
 	'https://downloads.xiph.org/releases/%{project}/%{name}-%{version}.tar.gz'
