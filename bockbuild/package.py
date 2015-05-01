@@ -585,6 +585,11 @@ SourceForgePackage.default_sources = [
 	'http://downloads.sourceforge.net/sourceforge/%{project}/%{name}-%{version}.tar.gz'
 ]
 
+class SourceForgeXzPackage (ProjectPackage): pass
+SourceForgePackage.default_sources = [
+	'https://downloads.sourceforge.net/sourceforge/%{project}/%{name}-%{version}.tar.xz'
+]
+
 class FreeDesktopPackage (ProjectPackage): pass
 FreeDesktopPackage.default_sources = [
 	'http://%{project}.freedesktop.org/releases/%{name}-%{version}.tar.gz'
