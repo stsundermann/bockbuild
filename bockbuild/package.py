@@ -717,6 +717,11 @@ FreeDesktopPackage.default_sources = [
 	'http://%{project}.freedesktop.org/releases/%{name}-%{version}.tar.gz'
 ]
 
+class FreeDesktopXzPackage (ProjectPackage): pass
+FreeDesktopPackage.default_sources = [
+	'http://%{project}.freedesktop.org/releases/%{name}-%{version}.tar.xz'
+]
+
 class GitHubTarballPackage (Package):
 	def __init__ (self, org, name, version, commit, configure, override_properties = None):
 		Package.__init__ (self, name, version, revision = commit, organization = org,
