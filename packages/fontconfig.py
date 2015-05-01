@@ -1,9 +1,9 @@
 class FontConfigPackage (Package):
 	def __init__ (self):
-		Package.__init__ (self, 'fontconfig', '2.10.2',
+		Package.__init__ (self, 'fontconfig', '2.11.1',
 			configure_flags = [ '--disable-docs' ],
 			sources = [
-				'http://www.fontconfig.org/release/%{name}-%{version}.tar.gz'
+				'http://www.freedesktop.org/software/%{name}/release/%{name}-%{version}.tar.gz'
 			],
 			#a non-empty DESTDIR keeps fc-cache from running at install-time
 			override_properties = { 'makeinstall': 'make DESTDIR="/" install' }
