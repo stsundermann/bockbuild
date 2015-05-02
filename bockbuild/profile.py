@@ -83,7 +83,7 @@ class Profile:
 		parser.add_option ('', '--csproj-insert', default = None,
 			action = 'store', dest = 'csproj_file',
 			help = 'Inserts the profile environment variables into VS/MonoDevelop .csproj files')
-		parser.add_option ('', '--arch', default = 'x86',
+		parser.add_option ('', '--arch', default = 'darwin-32',
 			action = 'store', dest = 'arch',
 			help = 'Select the target architecture(s) for the package')
 
