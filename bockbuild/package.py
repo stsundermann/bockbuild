@@ -586,7 +586,7 @@ SourceForgePackage.default_sources = [
 ]
 
 class SourceForgeXzPackage (ProjectPackage): pass
-SourceForgePackage.default_sources = [
+SourceForgeXzPackage.default_sources = [
 	'https://downloads.sourceforge.net/sourceforge/%{project}/%{name}-%{version}.tar.xz'
 ]
 
@@ -596,7 +596,7 @@ FreeDesktopPackage.default_sources = [
 ]
 
 class FreeDesktopXzPackage (ProjectPackage): pass
-FreeDesktopPackage.default_sources = [
+FreeDesktopXzPackage.default_sources = [
 	'http://%{project}.freedesktop.org/releases/%{name}-%{version}.tar.xz'
 ]
 
@@ -655,7 +655,7 @@ GstreamerPackage.default_sources = [
 ]
 
 class GstreamerXzPackage (ProjectPackage): pass
-GstreamerPackage.default_sources = [
+GstreamerXzPackage.default_sources = [
 	'https://%{project}.freedesktop.org/src/%{name}/%{name}-%{version}.tar.xz'
 ]
 
@@ -665,6 +665,6 @@ XiphPackage.default_sources = [
 ]
 
 class XiphXzPackage (ProjectPackage): pass
-XiphPackage.default_sources = [
+XiphXzPackage.default_sources = [
 	'https://downloads.xiph.org/releases/%{project}/%{name}-%{version}.tar.xz'
 ]
