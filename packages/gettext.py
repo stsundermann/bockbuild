@@ -1,6 +1,6 @@
 class GettextPackage (GnuPackage):
 	def __init__ (self):
-		GnuPackage.__init__ (self, 'gettext', '0.18.2',
+		GnuXzPackage.__init__ (self, 'gettext', '0.19.4',
 			configure_flags = [
 				'--disable-java',
 				'--disable-libasprintf',
