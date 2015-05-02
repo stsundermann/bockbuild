@@ -1,11 +1,10 @@
-class LibPngPackage (Package):
+class LibPngPackage (SourceForgeXzPackage):
 	def __init__ (self):
-		Package.__init__(self, 'libpng', '1.4.12',
-										 sources = ['http://downloads.sourceforge.net/sourceforge/libpng/libpng-1.4.12.tar.xz'],
-										 configure_flags = ['--enable-shared'])
+		SourceForgeXzPackage.__init__ (self, 'libpng', 'libpng', '1.6.17', configure_flags = ['--enable-shared'])
 
-		#This package would like to be built with fat binaries
-		if Package.profile.m64 == True:
-			self.fat_build = True
+		# If we are on OS X this package likes to be a fat binary
+		if Package.profile.name == 'darwin':
+			if Package.profile.m64 == True:
+				self.fat_build = True
 
 LibPngPackage()
