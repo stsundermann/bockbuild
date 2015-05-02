@@ -374,7 +374,7 @@ class Package:
 		self.build ()
 		self.install ()
 
-	def make_artifact (stage_dir, build_artifact):
+	def make_artifact (self, stage_dir, build_artifact):
 		open (build_artifact, 'w').close ()
 		os.utime (build_artifact, None)
 		
@@ -388,9 +388,12 @@ class Package:
 				error ('MACRO EXPANSION ERROR: ' + str(e))
 
 			log (1, env_command)
+			full_command = env_command
 			stdout = tempfile.NamedTemporaryFile()
 			stderr = tempfile.NamedTemporaryFile()
-			full_command = '%s  > %s 2> %s' % (env_command, stdout.name, stderr.name)
+			if not Package.profile.verbose:
+				full_command = '%s  > %s 2> %s' % (env_command, stdout.name, stderr.name)
+
 			try:
 				run_shell (full_command)
 			except Exception as e:
