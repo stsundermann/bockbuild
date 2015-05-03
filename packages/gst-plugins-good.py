@@ -1,4 +1,4 @@
-class GstPluginsGoodPackage (GstreamerPackage):
+class GstPluginsGoodPackage (GstreamerXzPackage):
 	def __init__ (self):
 		GstreamerXzPackage.__init__ (self, 'gstreamer', 'gst-plugins-good',
 			'1.4.5', configure_flags = [
