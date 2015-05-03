@@ -1,4 +1,4 @@
-class GettextPackage (GnuPackage):
+class GettextPackage (GnuXzPackage):
 	def __init__ (self):
 		GnuXzPackage.__init__ (self, 'gettext', '0.19.4',
 			configure_flags = [
