@@ -1,36 +1,34 @@
 class CairoPackage (CairoGraphicsXzPackage):
 	def __init__ (self):
-		CairoGraphicsXzPackage.__init__ (self, 'cairo', '1.12.14')
-		self.sources.extend ([
-			'patches/cairo-quartz-crash.patch',
-			'patches/cairo-fix-color-bitmap-fonts.patch',
-			'patches/cairo-fix-CGFontGetGlyphPath-deprecation.patch',
-#			'patches/cairo-cglayer.patch',
-		])
+		CairoGraphicsXzPackage.__init__ (self, 'cairo', '1.14.2')
+
 		#This package would like to be built with fat binaries
-		if Package.profile.m64 == True:
-			self.fat_build = True
-
-	def prep (self):
-		Package.prep (self)
-
-		if Package.profile.name == 'darwin':
-			for p in range (1, len (self.sources)):
-				self.sh ('patch -p1 < "%{sources[' + str (p) + ']}"')
+		# if Package.profile.m64 == True:
+		# 	self.fat_build = True
 
 	def build (self):
-		self.configure_flags = [
-			'--enable-pdf',
-			'--enable-debug'
-		]
 
 		if Package.profile.name == 'darwin':
 			self.configure_flags.extend ([
+				'--disable-gl',
 				'--enable-quartz',
 				'--enable-quartz-font',
 				'--enable-quartz-image',
+				'--disable-silent-rules',
+				'--disable-symbol-lookup',
 				'--disable-xlib',
-				'--without-x'
+				'--disable-xlib-xcb',
+				'--disable-xcb',
+				'--disable-xcb-shm',
+				'--without-x',
+				'--enable-ft',
+				'--enable-pdf',
+				'--enable-png',
+				'--enable-ps',
+				'--enable-script',
+				'--enable-svg',
+				'--enable-tee',
+				'--enable-xml'				
 			])
 		elif Package.profile.name == 'linux':
 			self.configure_flags.extend ([
