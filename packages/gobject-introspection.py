@@ -1,6 +1,6 @@
 class GObjectIntrospectionPackage (Package):
 	def __init__ (self):
-		Package.__init__ (self, 'gobject-introspection', '1.44.0', sources = ['https://download.gnome.org/sources/%{name}/1.44/%{name}-%{version}.tar.xz'])
+		Package.__init__ (self, 'gobject-introspection', '1.44.0', sources = ['https://download.gnome.org/sources/%{name}/1.44/%{name}-%{version}.tar.xz'], configure_flags = ['--disable-tests'])
 
 		if Package.profile.name == 'darwin':
 			self.sources.extend ([
@@ -19,7 +19,6 @@ class GObjectIntrospectionPackage (Package):
 				self.sh ('patch -p1 --ignore-whitespace < "%{sources[' + str (p) + ']}"')
 
 	def arch_build (self, arch):
-		print arch
 		if arch == 'darwin-32':
 				self.local_ld_flags = ['-arch i386']
 				self.local_gcc_flags = ['-arch i386']
