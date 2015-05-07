@@ -28,6 +28,8 @@ class Package:
 		self.local_gcc_flags = []
 		self.local_ld_flags = []
 		self.local_configure_flags = []
+		self.local_make_flags = []
+		self.local_install_flags = []
 
 		# fat binary parameters. On a 64-bit Darwin profile (m64 = True) 
 		# each package must decide if it will a) perform a multi-arch (64/32) build 
@@ -381,7 +383,7 @@ class Package:
 					self.package_prefix = self.bin64_prefix
 					log (1, 'Building 64-bit binaries at ' + self.package_prefix + ' from ' + package_build_dir64)
 					self.arch_build ('darwin-64')
-					self.sh ('%{makeinstall}')
+					self.sh ('%{local_install_flags} %{makeinstall}')
 
 					os.chdir ('..')
 					os.chdir (package_build_dir)
@@ -479,13 +481,13 @@ class Package:
 		self.sh ('OBJCFLAGS="%{gcc_flags} %{local_gcc_flags}" CFLAGS="%{gcc_flags} %{local_gcc_flags}" CXXFLAGS="%{gcc_flags} %{local_gcc_flags}" CPPFLAGS="%{cpp_flags} %{local_cpp_flags}" LDFLAGS="%{ld_flags} %{local_ld_flags}" %{configure} %{configure_flags} %{local_configure_flags}')
 
 	def make (self):
-		self.sh ('%{make}')
+		self.sh ('%{local_make_flags} %{make}')
 
 	def install (self):
 		if self.sources == None:
 			log (1, '<skipping - no sources defined>')
 			return
-		self.sh ('%{makeinstall}')
+		self.sh ('%{local_install_flags} %{makeinstall}')
 
 		if self.m64 and self.needs_lipo: #lipo here
 			lipo_dir = self.prefix + '-lipo'
