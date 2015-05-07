@@ -1,9 +1,9 @@
 class PangoPackage (GnomeXzPackage):
 	def __init__ (self):
-		GnomePackage.__init__ (self,
+		GnomeXzPackage.__init__ (self,
 			'pango',
-			version_major = '1.35',
-			version_minor = '0',
+			version_major = '1.36',
+			version_minor = '8',
 			configure_flags = [
 				'--without-x',
 				'--enable-debug'
