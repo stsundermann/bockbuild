@@ -8,9 +8,9 @@ class BansheePackages:
 		# Toolchain
 		self.packages.extend ([
 			'autoconf.py',
+			'automake.py',
 			'tar.py',
 			'xz.py',
-			'automake.py',
 			'libtool.py',
 			'gettext.py',
 			'pkg-config.py',
