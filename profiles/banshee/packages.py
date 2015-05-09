@@ -44,6 +44,7 @@ class BansheePackages:
 			'gmp.py',
 			'nettle.py',
 			'gnutls.py',
+			'intltool.py',
 			'glib-networking.py',
 			'libsoup.py',
 			'sqlite.py',
