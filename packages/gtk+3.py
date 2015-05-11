@@ -7,7 +7,7 @@ class GtkPackage (GnomeXzPackage):
 				'--enable-debug',
 				'--enable-static',
 				'--disable-glibtest',
-				'--enable-introspection',
+				'--disable-introspection',
 				'--disable-cloudprint',
 				'--disable-wayland-backend',
 				'--disable-schemas-compile',

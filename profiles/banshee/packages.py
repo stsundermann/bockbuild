@@ -27,7 +27,6 @@ class BansheePackages:
 			'fontconfig.py',
 			'pixman.py',
 			'glib.py',
-			'gobject-introspection.py',
 			'libcroco.py',
 			'cairo.py',
 			'pango.py',
