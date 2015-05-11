@@ -10,27 +10,19 @@ class GtkSharp3Package (GitHubPackage):
 				'https://github.com/stsundermann/gtk-sharp/commit/af064c76266787bbbdd4309464d1bb4bb886e2ea.patch'
 			])
 
+		if Package.profile.name == 'darwin' and not Package.profile.m64:
+			self.configure_flags.extend ([
+				# fix building i386 on x86_64
+                '--build=i386-apple-darwin11.2.0',
+			])
+
 	def prep (self):
 		Package.prep (self)
 		if Package.profile.name == 'darwin':
 			for p in range (1, len (self.sources)):
 				self.sh ('patch -p1 --ignore-whitespace < "%{sources[' + str (p) + ']}"')
+				
+		# Run autogen, the correct flags will be picked automatically up when configure is run.
+		self.sh ('./autogen.sh --prefix="%{prefix}"')
 
-	def arch_build (self, arch):
- 
-		if arch == 'darwin-32':
-				self.local_ld_flags = ['-arch i386']
-				self.local_gcc_flags = ['-arch i386']
-				self.local_configure_flags.extend (['--build=i386-apple-darwin11.2.0'])
-				self.sh ('./autogen.sh --prefix="%{prefix}"')
-				Package.configure (self)
-		elif arch == 'darwin-64':	
-				self.local_ld_flags = ['-arch x86_64']
-				self.local_gcc_flags = ['-arch x86_64']
-				self.local_configure_flags.extend (['--build=x86_64-apple-darwin11.2.0'])
-				self.sh ('./autogen.sh --prefix="%{prefix}"')
-				Package.configure (self)
- 
-		Package.arch_build (self, arch, defaults = False)
- 
 GtkSharp3Package ()
