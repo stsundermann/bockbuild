@@ -668,5 +668,5 @@ XiphPackage.default_sources = [
 
 class XiphXzPackage (ProjectPackage): pass
 XiphXzPackage.default_sources = [
-	'https://downloads.xiph.org/releases/%{project}/%{name}-%{version}.tar.xz'
+	'http://downloads.xiph.org/releases/%{project}/%{name}-%{version}.tar.xz'
 ]
