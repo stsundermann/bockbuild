@@ -121,7 +121,7 @@ class BansheePackages:
 		# Mono
 		self.packages.extend ([
 			'mono.py',
-			'gtk-sharp.py',
+			'gtk-sharp3.py',
 			'mono-addins.py',
 			'dbus-sharp.py',
 			'dbus-sharp-glib.py',
