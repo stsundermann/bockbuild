@@ -1,4 +1,4 @@
-Package ('fftw', '3.3.2',
+Package ('fftw', '3.3.4',
 	sources = [ 'http://www.fftw.org/%{name}-%{version}.tar.gz'],
 
 	# banshee's lastfmfingerprint addin requires
