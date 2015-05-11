@@ -46,8 +46,8 @@ class BansheePackages:
 			'gnutls.py',
 			'intltool.py',
 			'glib-networking.py',
-			'libsoup.py',
 			'sqlite.py',
+			'libsoup.py',
 		])
 
 		# banshee-community-extensions
