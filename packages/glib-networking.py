@@ -1,4 +1,4 @@
-GnomePackage ('glib-networking', '2.28', '0',
+GnomeXzPackage ('glib-networking', '2.44', '0',
 	configure_flags = [
 		'--without-ca-certificates'
 	]
