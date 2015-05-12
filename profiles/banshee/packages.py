@@ -89,7 +89,6 @@ class BansheePackages:
 			'icon-naming-utils.py',
 			'hicolor-icon-theme.py',
 			'tango-icon-theme.py',
-			'murrine.py'
 		])
 
 		# Codecs
