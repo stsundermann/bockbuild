@@ -23,6 +23,12 @@ class GlibPackage (GnomeXzPackage):
 				'https://trac.macports.org/export/135860/trunk/dports/devel/glib2/files/patch-gio-giotypes.h.diff',
 				'https://trac.macports.org/export/135842/trunk/dports/devel/glib2/files/patch-gmodule-gmodule-dl.c.diff'
 			])
+			
+		if Package.profile.name == 'darwin' and not Package.profile.m64:
+			self.configure_flags.extend ([
+				# fix building i386 on x86_64
+                '--build=i386-apple-darwin11.2.0',
+			])
 
 	def prep (self):
 		Package.prep (self)
