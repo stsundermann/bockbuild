@@ -1,2 +1,2 @@
-GnomeXzPackage ('librsvg', version_major = '2.37', version_minor = '0',
-        configure_flags = [ '--disable-Bsymbolic', '--disable-introspection' ])
+GnomeXzPackage ('librsvg', version_major = '2.40', version_minor = '9',
+        configure_flags = [ '--disable-Bsymbolic', '--disable-vala', '--disable-introspection' ])
