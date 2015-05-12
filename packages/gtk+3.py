@@ -43,9 +43,6 @@ class GtkPackage (GnomeXzPackage):
 				self.sh ('export CXX="$CXX -arch i386"')
 				self.local_ld_flags = ['-arch i386', '-DX_LOCALE']
 				self.local_gcc_flags = ['-arch i386', '-fstrict-aliasing']
-				# The following will only work with bash according to:
-				# http://www.gossamer-threads.com/lists/python/python/30602
-				os.environ['VERSIONER_PYTHON_PREFER_32_BIT'] = 'yes'
 		elif arch == 'darwin-64':
 				self.sh ('export CC="$CC -arch x86_64"')
 				self.sh ('export CXX="$CXX -arch x86_64"')
