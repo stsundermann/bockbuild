@@ -658,7 +658,7 @@ GstreamerPackage.default_sources = [
 
 class GstreamerXzPackage (ProjectPackage): pass
 GstreamerXzPackage.default_sources = [
-	'https://%{project}.freedesktop.org/src/%{name}/%{name}-%{version}.tar.xz'
+	'http://%{project}.freedesktop.org/src/%{name}/%{name}-%{version}.tar.xz'
 ]
 
 class XiphPackage (ProjectPackage): pass
