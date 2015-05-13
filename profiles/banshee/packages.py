@@ -17,6 +17,7 @@ class BansheePackages:
 			'libarchive.py',
 			'ncurses.py',
 			'cmake.py',
+			'bison.py'
 		])
 
 		# Base Libraries
