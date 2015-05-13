@@ -109,6 +109,7 @@ class BansheePackages:
 		# GStreamer
 		self.packages.extend ([
 			'liboil.py',
+			'orc.py',
 			'gstreamer.py',
 			'gst-plugins-base.py',
 			'gst-plugins-good.py'
