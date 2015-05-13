@@ -129,7 +129,9 @@ class BansheePackages:
 			'dbus-sharp.py',
 			'dbus-sharp-glib.py',
 			'taglib-sharp.py',
-			'mono-upnp.py',
+
+			# mono-upnp only carries gtk#2 UI bits and they cannot be disabled
+			# 'mono-upnp.py',
 		])
 
 		if isinstance (self, DarwinProfile):
