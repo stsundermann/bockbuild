@@ -89,6 +89,8 @@ class Package:
 			return None
 		if "git.gnome.org" in source:
 			return None
+		if "anongit.freedesktop.org" in source:
+			return None
 		if "github" in source:
 			pattern = r"github.com\W(\w+)\/\S+\.git"
 			match = re.search(pattern, source)
@@ -601,6 +603,42 @@ class FreeDesktopXzPackage (ProjectPackage): pass
 FreeDesktopXzPackage.default_sources = [
 	'http://%{project}.freedesktop.org/releases/%{name}-%{version}.tar.xz'
 ]
+
+class FreeDesktopGitPackage (Package):
+	def __init__ (self, organization, name, version, revision = None, git_branch = None, configure = None, configure_flags = None, override_properties = None):
+		Package.__init__ (self, name, version,
+			organization = organization,
+			revision = revision,
+			git_branch = git_branch,
+			configure_flags = configure_flags,
+			configure = './autogen.sh --prefix=%{prefix}',
+			sources = ['git://anongit.freedesktop.org/%{organization}/%{name}'],
+			override_properties = override_properties)
+			
+		profile = Package.profile
+		namever = '%s-%s' % (self.name, self.version)
+			
+		self.revision_file = os.path.join (profile.build_root, namever + '.revision')
+		
+	def is_successful_build(self, build_success_file, package_dir):
+		if not Package.is_successful_build(self, build_success_file, package_dir):
+			return False
+		return self.check_version_hash ()
+			
+	def check_version_hash (self):
+		if os.path.isfile (self.revision_file):
+			f = open (self.revision_file, 'r')
+			check = f.readline ().strip ('\n')
+			if check == self.revision:
+				return True
+		self.create_version_hash ()
+		return False
+		
+	def create_version_hash (self):
+		f = open (self.revision_file, 'w')
+		f.write (self.revision)
+		f.write ('\n')
+		f.close()
 
 class GitHubTarballPackage (Package):
 	def __init__ (self, org, name, version, commit, configure, override_properties = None):
