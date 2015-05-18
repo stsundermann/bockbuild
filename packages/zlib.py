@@ -17,6 +17,16 @@ class ZlibPackage (Package):
 		# zlib fails on configure if --enable-debug is present in configure_flags
 		self.configure_flags.remove("--enable-debug")
 
+		if arch == 'darwin-fat': #multi-arch  build pass
+			self.local_ld_flags = ['-arch i386' , '-arch x86_64']
+			self.local_gcc_flags = ['-arch i386' , '-arch x86_64']
+		elif arch == 'darwin-32':
+			self.local_ld_flags = ['-arch i386']
+			self.local_gcc_flags = ['-arch i386']
+		elif arch == 'darwin-64':
+			self.local_ld_flags = ['-arch x86_64']
+			self.local_gcc_flags = ['-arch x86_64']
+
 		Package.arch_build (self, arch, defaults = False)
 
 ZlibPackage ()
