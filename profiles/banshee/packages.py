@@ -64,7 +64,8 @@ class BansheePackages:
 			# openvp (currently not working)
 			#'libopentk.py',
 			'libsdl.py',
-			'libglade.py',
+			# libglade-gtk3 currently not working
+			#'libglade-gtk3.py',
 
 		])
 
