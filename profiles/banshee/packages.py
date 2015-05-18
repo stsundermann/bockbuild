@@ -78,8 +78,10 @@ class BansheePackages:
 			])
 
 		# WebKit-gtk
-		self.packages.extend ([
-		# WebKit-gtk dependencies
+		# Don't attempt to build webkit-gtk on OS X as it is impossible
+		# see: http://www.google-melange.com/gsoc/proposal/review/org/google/gsoc2015/knocte/5668600916475904#c5741031244955648
+		if not isinstance (self, DarwinProfile):
+			self.packages.extend ([
 				'gperf.py',
 				'enchant.py',
 				'libicu.py',
