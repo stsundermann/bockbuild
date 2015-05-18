@@ -11,13 +11,15 @@ class BansheePackages:
 			'automake.py',
 			'tar.py',
 			'xz.py',
+			'zlib.py',
 			'libtool.py',
 			'gettext.py',
 			'pkg-config.py',
 			'libarchive.py',
 			'ncurses.py',
 			'cmake.py',
-			'bison.py'
+			'bison.py',
+			'gnome-common.py',
 		])
 
 		# Base Libraries
