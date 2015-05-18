@@ -77,16 +77,15 @@ class BansheePackages:
 			])
 
 		# WebKit-gtk
-		# TODO on darwin currently fails on the build stage
-		# so don't include it on darwin for now
-		if not isinstance (self, DarwinProfile):
-			self.packages.extend ([
+		self.packages.extend ([
 		# WebKit-gtk dependencies
 				'gperf.py',
 				'enchant.py',
 				'libicu.py',
-				'zlib.py',
-				'webkit.py'
+				'harfbuzz.py',
+				'libwebp.py',
+				# webkit-gtk3 currently not working
+				# 'webkit-gtk3.py'
 			])
 
 		# Theme
