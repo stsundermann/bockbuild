@@ -1,7 +1,7 @@
 class CmakePackage (Package):
 	def __init__ (self):
 		Package.__init__ (self, 'cmake', '3.2.2', 
-			sources = ['http://www.cmake.org/files/v2.8/%{name}-%{version}.tar.gz'])
+			sources = ['http://www.cmake.org/files/v3.2/%{name}-%{version}.tar.gz'])
 
 		self.sources.extend ([
 			'https://trac.macports.org/export/136239/trunk/dports/devel/cmake/files/macports.cmake',
