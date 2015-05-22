@@ -97,6 +97,7 @@ class BansheePackages:
 			'icon-naming-utils.py',
 			'hicolor-icon-theme.py',
 			'tango-icon-theme.py',
+			'adwaita-icon-theme.py'
 		])
 
 		# Codecs
@@ -114,6 +115,7 @@ class BansheePackages:
 		self.packages.extend ([
 			'liboil.py',
 			'orc.py',
+			'soundtouch.py',
 			'gstreamer.py',
 			'gst-plugins-base.py',
 			'gst-plugins-good.py'
