@@ -55,20 +55,6 @@ class BansheePackages:
 			'libsoup.py',
 		])
 
-		# banshee-community-extensions
-		self.packages.extend ([
-			# lastfm fingerprint
-			'fftw.py',
-			'libsamplerate.py',
-
-			# openvp (currently not working)
-			#'libopentk.py',
-			'libsdl.py',
-			# libglade-gtk3 currently not working
-			#'libglade-gtk3.py',
-
-		])
-
 		# exclude package with possible patent/copyright issues
 		# when doing release builds
 		if not self.cmd_options.release_build:
@@ -139,6 +125,20 @@ class BansheePackages:
 
 			# mono-upnp only carries gtk#2 UI bits and they cannot be disabled
 			# 'mono-upnp.py',
+		])
+
+		# banshee-community-extensions
+		self.packages.extend ([
+			# lastfm fingerprint
+			'fftw.py',
+			'libsamplerate.py',
+			# openvp
+			'libgdiplus.py',
+			'libopentk.py',
+			'libsdl.py',
+			# libglade-gtk3 currently not working
+			#'libglade-gtk3.py',
+
 		])
 
 		if isinstance (self, DarwinProfile):
