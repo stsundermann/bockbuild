@@ -43,6 +43,7 @@ class BansheePackages:
 			'libepoxy.py',
 			'cairo.py',
 			'gtk+3.py',
+			'gsettings-desktop-schemas.py',
 			# 'gconf-dummy.py',
 			'libgpg-error.py',
 			'libgcrypt.py',
