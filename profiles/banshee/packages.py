@@ -102,6 +102,7 @@ class BansheePackages:
 		self.packages.extend ([
 			'liboil.py',
 			'orc.py',
+			'yasm.py',
 			'soundtouch.py',
 			'gstreamer.py',
 			'gst-plugins-base.py',
