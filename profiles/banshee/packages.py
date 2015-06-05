@@ -106,7 +106,8 @@ class BansheePackages:
 			'soundtouch.py',
 			'gstreamer.py',
 			'gst-plugins-base.py',
-			'gst-plugins-good.py'
+			'gst-plugins-good.py',
+			'gst-libav'
 		])
 
 		if isinstance (self, DarwinProfile):
