@@ -43,6 +43,7 @@ class BansheePackages:
 			'libepoxy.py',
 			'cairo.py',
 			'gtk+3.py',
+			'gsettings-desktop-schemas.py',
 			# 'gconf-dummy.py',
 			'libgpg-error.py',
 			'libgcrypt.py',
@@ -101,10 +102,12 @@ class BansheePackages:
 		self.packages.extend ([
 			'liboil.py',
 			'orc.py',
+			'yasm.py',
 			'soundtouch.py',
 			'gstreamer.py',
 			'gst-plugins-base.py',
-			'gst-plugins-good.py'
+			'gst-plugins-good.py',
+			'gst-libav'
 		])
 
 		if isinstance (self, DarwinProfile):

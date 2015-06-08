@@ -1,6 +1,6 @@
 class GtkPackage (GnomeXzPackage):
 	def __init__ (self):
-		GnomeXzPackage.__init__ (self, 'gtk+', version_major = '3.16', version_minor = '2',
+		GnomeXzPackage.__init__ (self, 'gtk+', version_major = '3.16', version_minor = '3',
 			configure_flags = [
 				'--with-gdktarget=quartz',
 				'--enable-quartz-backend',
@@ -11,6 +11,7 @@ class GtkPackage (GnomeXzPackage):
 				'--disable-cloudprint',
 				'--disable-wayland-backend',
 				'--disable-schemas-compile',
+				'--disable-installed-tests',
 				'gio_can_sniff=yes'
 			]
 		)
