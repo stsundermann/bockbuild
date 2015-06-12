@@ -5,7 +5,7 @@ from util.util import *
 from unixprofile import UnixProfile
 
 class DarwinProfile (UnixProfile):
-	def __init__ (self, prefix = False, m64 = False, min_version = None):
+	def __init__ (self, prefix = False, m64 = False, min_version = 6):
 		UnixProfile.__init__ (self, prefix)
 		
 		self.name = 'darwin'
@@ -16,23 +16,14 @@ class DarwinProfile (UnixProfile):
 		if (not os.path.isdir (sdkroot)):
 			sdkroot = '/Developer/SDKs/'
 
-		if (os.path.isdir (sdkroot + 'MacOSX10.6.sdk')):
-			self.os_x_minor = 6
-			self.mac_sdk_path = sdkroot + 'MacOSX10.6.sdk'
-		elif (os.path.isdir (sdkroot + 'MacOSX10.7.sdk')):
-			self.os_x_minor = 7
-			self.mac_sdk_path = sdkroot + 'MacOSX10.7.sdk'
-		elif (os.path.isdir (sdkroot + 'MacOSX10.8.sdk')):
-			self.os_x_minor = 8
-			self.mac_sdk_path = sdkroot + 'MacOSX10.8.sdk'	
-		elif (os.path.isdir (sdkroot + 'MacOSX10.9.sdk')):
-			self.os_x_minor = 9
-			self.mac_sdk_path = sdkroot + 'MacOSX10.9.sdk'
-		elif (os.path.isdir (sdkroot + 'MacOSX10.10.sdk')):
-			self.os_x_minor = 10
-			self.mac_sdk_path = sdkroot + 'MacOSX10.10.sdk'
-		else:
-			raise IOError ('Mac OS X SDKs 10.6, 10.7, 10.8, 10.9 or 10.10 not found')
+		sdk_paths = (sdkroot + 'MacOSX10.%s.sdk' % v for v in range (min_version, 20)) #future-proof! :P
+
+		for sdk in sdk_paths:
+			if os.path.isdir (sdk):
+				self.mac_sdk_path = sdk
+				break
+
+		if self.mac_sdk_path is None: error ('Mac OS X SDK (>=10.%s) not found under %s' % (min_version, sdkroot))
 
 		os.environ ['MACOSX_DEPLOYMENT_SDK_PATH'] = self.mac_sdk_path
 
@@ -41,9 +32,11 @@ class DarwinProfile (UnixProfile):
 				'-isysroot %s' % self.mac_sdk_path
 			])
 
+		self.target_osx = '10.%s' % min_version
+
 		if min_version:
-			self.gcc_flags.extend (['-mmacosx-version-min=%s' % min_version])
-			os.environ ['MACOSX_DEPLOYMENT_TARGET'] = min_version
+			self.gcc_flags.extend (['-mmacosx-version-min=%s' % self.target_osx])
+			self.env.set ('MACOSX_DEPLOYMENT_TARGET', self.target_osx)
 
 		self.gcc_debug_flags = [ '-O0', '-ggdb3' ]
 		
