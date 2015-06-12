@@ -107,7 +107,7 @@ class BansheePackages:
 			'gstreamer.py',
 			'gst-plugins-base.py',
 			'gst-plugins-good.py',
-			'gst-libav'
+			'gst-libav.py'
 		])
 
 		if isinstance (self, DarwinProfile):
