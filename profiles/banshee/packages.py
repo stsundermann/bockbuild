@@ -135,10 +135,13 @@ class BansheePackages:
 			# lastfm fingerprint
 			'fftw.py',
 			'libsamplerate.py',
+
 			# openvp
-			'libgdiplus.py',
-			'libopentk.py',
-			'libsdl.py',
+			# [disabled for now (workaround to bgo#750608)]
+			#'libgdiplus.py',
+			#'libopentk.py',
+			#'libsdl.py',
+
 			# libglade-gtk3 currently not working
 			#'libglade-gtk3.py',
 
