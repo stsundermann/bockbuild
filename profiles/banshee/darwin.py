@@ -10,7 +10,7 @@ from packages import BansheePackages
 
 class BansheeDarwinProfile (DarwinProfile, BansheePackages):
 	def __init__ (self):
-		DarwinProfile.__init__ (self)
+		DarwinProfile.__init__ (self, min_version = 9)
 		BansheePackages.__init__ (self)
 
 		self_dir = os.path.realpath (os.path.dirname (sys.argv[0]))
