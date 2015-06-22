@@ -40,6 +40,8 @@ public class Solitary
     public string ConfinementRoot { get; set; }
     public string OutputPath { get; set; }
 
+    internal string TempPath { get; private set; }
+
     private class BlacklistComparer : IEqualityComparer<string>
     {
         public bool Equals (string a, string b) { return Path.GetFileName (b).StartsWith (a); }
@@ -52,6 +54,12 @@ public class Solitary
         Items = new List<Item> ();
         SearchPaths = new List<string> ();
         EscapedItems = new Dictionary<string, int> ();
+
+        TempPath = Path.Combine (System.IO.Path.GetTempPath (), this.GetType ().Name);
+        if (Directory.Exists (TempPath)) {
+            Directory.Delete (TempPath, true);
+        }
+        Directory.CreateDirectory (TempPath);
 
         FindNativeLibrarySearchPaths ();
     }
@@ -112,11 +120,15 @@ public class Solitary
         }
     }
     
-    public IEnumerable<Item> Walk (string path)
+    public List<Item> Walk (List<string> paths)
     {
-        return Walk (Directory.Exists (path)
-            ? (FileSystemInfo)new DirectoryInfo (path)
-            : (FileSystemInfo)new FileInfo (path));
+        var items = new List<Item> ();
+        foreach (var path in paths) {
+            items.AddRange (Walk (Directory.Exists (path)
+                ? (FileSystemInfo)new DirectoryInfo (path)
+                : (FileSystemInfo)new FileInfo (path)));
+        }
+        return items;
     }
 
     public IEnumerable<Item> Walk (FileSystemInfo fsi)
@@ -135,6 +147,12 @@ public class Solitary
             }
         } else if (file != null) {
             var item = Item.Resolve (this, file);
+            if (item is AssemblyItem) {
+                var tempFileName = Path.Combine (this.TempPath, Path.GetFileName (item.File.FullName));
+                if (!File.Exists (tempFileName)) {
+                    item.File.CopyTo (tempFileName);
+                }
+            }
             if (item != null) {
                 yield return item;
             }

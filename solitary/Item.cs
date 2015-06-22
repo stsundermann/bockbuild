@@ -40,7 +40,7 @@ public enum FileType
 
 public abstract class Item
 {
-    public Solitary Confinement { get; set; }
+    public Solitary Confinement { get; protected set; }
     public abstract IEnumerable<Item> Load ();
 
     public FileInfo OriginalFile { get; private set; }
@@ -48,7 +48,7 @@ public abstract class Item
     private FileInfo file;
     public FileInfo File {
         get { return file; }
-        set {
+        protected set {
             if (value == null) {
                 file = null;
                 return;
@@ -144,19 +144,17 @@ public abstract class Item
 
         switch (GetFileType (file)) {
             case FileType.PE32Executable: 
-                item = new AssemblyItem ();
+                item = new AssemblyItem (confinement, file);
                 break;
             case FileType.MachO:
             case FileType.ELF:
-                item = new NativeLibraryItem ();
+                item = new NativeLibraryItem (confinement, file);
                 break;
             default:
-                item = new DataItem ();
+                item = new DataItem (confinement, file);
                 break;
         }
 
-        item.Confinement = confinement;
-        item.File = file;
         return item;
     }
 

@@ -3,8 +3,10 @@
 //  
 // Author:
 //   Aaron Bockover <abockover@novell.com>
+//   Andrés G. Aragoneses <knocte@gmail.com>
 // 
 // Copyright 2009-2010 Novell, Inc.
+// Copyright 2015 Andrés G. Aragoneses
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -35,14 +37,56 @@ public class AssemblyItem : Item
 {
     public Assembly Assembly { get; private set; }
 
-    public override IEnumerable<Item> Load ()
+    public AssemblyItem (Solitary confinement, FileInfo file) : this (confinement)
+    {
+        File = file;
+        PreLoad ();
+    }
+
+    public AssemblyItem (Solitary confinement, Assembly assembly) : this (confinement)
+    {
+        Assembly = assembly;
+        PreLoad ();
+    }
+
+    private AssemblyItem (Solitary confinement)
+    {
+        Confinement = confinement;
+    }
+
+    private void PreLoad ()
     {
         if (Assembly == null && File != null) {
-            Assembly = Assembly.LoadFrom (File.FullName);
+            Assembly = Assembly.LoadFrom (FindPossibleTempFile());
         } else if (Assembly != null && File == null) {
             File = new FileInfo (Assembly.Location);
         }
+    }
 
+    private string FindPossibleTempFile ()
+    {
+        if (String.IsNullOrEmpty (Confinement.TempPath)) {
+            throw new InvalidOperationException ("Confinement.TempPath cannot be empty.");
+        }
+        if (!Directory.Exists (Confinement.TempPath)) {
+            throw new InvalidOperationException ("Confinement.TempPath should have been created at this point.");
+        }
+        var tempPathElements = new DirectoryInfo (Confinement.TempPath).GetFileSystemInfos ();
+        var assemblyFileName = System.IO.Path.GetFileName(File.FullName);
+        foreach (var fileSystemInfo in tempPathElements) {
+            if (Directory.Exists (fileSystemInfo.FullName)) {
+                throw new InvalidOperationException ("There cannot be subfolders inside Confinement.TempPath.");
+            }
+            if (System.IO.Path.GetFileName (fileSystemInfo.FullName).Equals (assemblyFileName)) {
+                return fileSystemInfo.FullName;
+            }
+        }
+        // could be a referenced assembly, such as mscorlib
+        return File.FullName;
+    }
+
+    public override IEnumerable<Item> Load ()
+    {
         if (!IsValidConfinementItem (this)) {
             yield break;
         }
@@ -64,10 +108,7 @@ public class AssemblyItem : Item
         }
 
         foreach (var rname in Assembly.GetReferencedAssemblies ()) {
-            var ritem = new AssemblyItem () {
-                Confinement = Confinement,
-                Assembly = Assembly.Load (rname.FullName)
-            };
+            var ritem = new AssemblyItem (Confinement, Assembly.Load (rname.FullName));
             foreach (var item in ritem.Load ()) {
                 yield return item;
             }
@@ -83,7 +124,6 @@ public class AssemblyItem : Item
             BindingFlags.Static;
 
         var pinvoke_modules = new List<string> ();
-
         foreach (var type in Assembly.GetTypes ()) {
             foreach (var method in type.GetMethods (binding_flags)) {
                 if ((method.Attributes & MethodAttributes.PinvokeImpl) != 0) {
@@ -171,5 +211,4 @@ public class AssemblyItem : Item
         return pinvokeModule;
     }
 }
-
 
