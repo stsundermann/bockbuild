@@ -536,8 +536,8 @@ GnomeXzPackage.default_sources = [
 ]
 
 class GnomeGitPackage (Package):
-	def __init__ (self, name, version, revision,
-		configure_flags = None, sources = None, override_properties = None):
+	def __init__ (self, name, version,
+		revision = None, configure_flags = None, sources = None, override_properties = None):
 		Package.__init__ (self, name, version,
 			configure = './autogen.sh --prefix="%{prefix}"',
 			configure_flags = configure_flags,
