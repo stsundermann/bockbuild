@@ -50,7 +50,7 @@ class BansheeDarwinProfile (DarwinProfile, BansheePackages):
 		self.env.set('MONO_ADDINS_REGISTRY', self.prefix + '/addinreg')
 		self.env.set('DYLD_FALLBACK_LIBRARY_PATH', self.prefix + '/lib:/lib:/usr/lib')
 
-def bundle (self):
+	def bundle (self):
 		banshee_path = os.path.join (self.prefix, 'lib', 'banshee')
 		os.environ['MONO_PATH'] = ':'.join ([
 			banshee_path,
