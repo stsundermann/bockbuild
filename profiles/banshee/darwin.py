@@ -24,11 +24,9 @@ class BansheeDarwinProfile (DarwinProfile, BansheePackages):
 			'bin/banshee',
 			'lib/banshee',
 			'lib/pango',
-			'lib/gtk-2.0/2.10.0/loaders',
-			'lib/gtk-2.0/2.10.0/engines',
-			'lib/gtk-2.0/2.10.0/immodules',
+			'lib/gtk-3.0/3.0.0/immodules',
 			'lib/gdk-pixbuf-2.0/2.10.0/loaders',
-			'lib/gstreamer-0.10',
+			'lib/gstreamer-1.0',
 			'share/banshee',
 			'share/locale',
 			'etc/mono/config',
@@ -36,13 +34,14 @@ class BansheeDarwinProfile (DarwinProfile, BansheePackages):
 			'etc/mono/2.0/machine.config',
 			'etc/mono/2.0/settings.map',
 			'share/icons/hicolor/index.theme',
-			'share/icons/Tango/index.theme'
+			'share/icons/Tango/index.theme',
+			'share/glib-2.0/schemas'
 		]
 
 		self.bundle_from_build.extend ([
 			'share/icons/%s/%sx%s' % (theme, size, size)
 				for size in [16, 22, 32, 48]
-				for theme in ['hicolor', 'Tango']
+				for theme in ['hicolor', 'Tango', 'adwaita']
 		])
 
 		self.env.set('MONO_GAC_PREFIX', self.prefix)
